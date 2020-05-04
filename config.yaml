@@ -1,0 +1,83 @@
+---
+metasheet: metasheet.csv
+ref: ref.yaml
+assembly: 'mm9'
+
+## Is your library stranded? options are [true, false]
+stranded: false
+# Possible values are [ff-firststrand, ff-secondstrand, ff-unstranded, fr-firststrand, fr-secondstrand, fr-unstranded (default), transfrags]
+library_type: 'fr-unstranded'
+
+##PIPELINE CONTROL, whether perform these analysis
+## mapping and counting
+bam2bw: true
+align: true
+star_counts: true
+cuff_counts: true
+
+## filter fpkm table, sample QC
+# If this flag is on, you must have a metasheet column called batch with at least 2 samples per batch
+batch_effect_removal: false
+# Filters out "SNO" and "MIR" RNA, options are [true,false]
+filter_mirna: false
+cuff_filter_counts: true
+cluster: true
+
+## DEG
+deg: true
+
+## go, kegg and gsea 
+go_analysis: true
+kegg_analysis: true
+gsea_analysis: true
+
+
+
+
+##PARAMS, how to perform these analysis
+## PCA and Heatmap params, filter low expressed genes in fpkm table params
+RPKM_threshold: 1.0
+min_num_samples_expressing_at_threshold: 1
+## Number of genes to be represented in the Sample-Sample, Sample-Feature, and PCA plots
+numgenes_plots: "1000,2000,50000"
+## Plotting param for Sample-Feature Heatmap. Number represents number of kmeans in heatmap, 0 will output a hierarchical clustering heatmap, finally, a list of numbers "0,2,4" will output all three heatmaps in the same pdf (NOTE: be sure to include the "quotes" ONLY when giving a list!  Do not give quotes when it's just a single number)
+num_kmeans_clust: 0
+
+
+## adjpval for a gene to be considered differentially expressed and be included in GOterm analysis
+goterm_adjpval_cutoff: "0.01,0.05"
+## Number of GOterms in plot
+numgoterms: 15
+## Number of KEGG pathways in plot (note there is no cutoff herre because the KEGG module takes in full population statistics)
+#numkeggpathways: 15
+## Number of GSEA term in plot
+#numgsea: 15
+#Path to gene set enrichment db
+#gsea_db: static/gsea/msigdb.v6.1.symbols.gmt
+
+
+
+samples:
+  #FOR PAIRED-END samples--WARNING: DON'T mix single-end samples w/ paired-end
+  DM24h-HD-1:
+    - data/DM24h-1-5-HD-1_FRRL192312705-1a_1.clean.fq.gz
+    - data/DM24h-1-5-HD-1_FRRL192312705-1a_2.clean.fq.gz
+  DM24h-HD-2:
+    - data/DM24h-1-5-HD-2_FRRL192312706-1a_1.clean.fq.gz
+    - data/DM24h-1-5-HD-2_FRRL192312706-1a_2.clean.fq.gz
+  DM24h-HD-3:
+    - data/DM24h-1-5-HD-3_FRRL192312707-1a_1.clean.fq.gz
+    - data/DM24h-1-5-HD-3_FRRL192312707-1a_2.clean.fq.gz
+  GM-1:
+    - data/GM-1_FRRL192312699-1a_1.clean.fq.gz
+    - data/GM-1_FRRL192312699-1a_2.clean.fq.gz
+  GM-2:
+    - data/GM-2_FRRL192312700-1a_1.clean.fq.gz
+    - data/GM-2_FRRL192312700-1a_2.clean.fq.gz
+  GM-3:
+    - data/GM-3_FRRL192312701-1a_1.clean.fq.gz
+    - data/GM-3_FRRL192312701-1a_2.clean.fq.gz
+
+
+
+

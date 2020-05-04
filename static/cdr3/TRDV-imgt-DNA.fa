@@ -1,0 +1,36 @@
+>M22198|TRDV1*01|Homo sapiens|F|V-REGION|363..649|287 nt|1| | | | |287+0=287| | |
+gcccagaaggttactcaagcccagtcatcagtatccatgccagtgaggaaagcagtcacc
+ctgaactgcctgtatgaaacaagttggtggtcatattatattttttggtacaagcaactt
+cccagcaaagagatgattttccttattcgccagggttctgatgaacagaatgcaaaaagt
+ggtcgctattctgtcaacttcaagaaagcagcgaaatccgtcgccttaaccatttcagcc
+ttacagctagaagattcagcaaagtacttttgtgctcttggggaact
+>X15207|TRDV2*01|Homo sapiens|F|V-REGION|208..495|288 nt|1| | | | |288+0=288| | |
+gccattgagttggtgcctgaacaccaaacagtgcctgtgtcaataggggtccctgccacc
+ctcaggtgctccatgaaaggagaagcgatcggtaactactatatcaactggtacaggaag
+acccaaggtaacacaatcactttcatataccgagaaaaggacatctatggccctggtttc
+aaagacaatttccaaggtgacattgatattgcaaagaacctggctgtacttaagatactt
+gcaccatcagagagagatgaagggtcttactactgtgcctgtgacacc
+>Y13426|TRDV2*02|Homo sapiens|F|V-REGION|1..283|283 nt|1| | | | |283+0=283|partial in 5'| |
+attgagttggtgcctgaacaccaaacagtgcctgtgtcaatagggatccctgccaccctc
+aggtgctccatgaaaggagaagcgatcggtaactactatatcaactggtacaggaagacc
+caaggtaacacaatcactttcatataccgagaaaaggacatctatggccctggtttcaaa
+gacaatttccaaggtgacattgatattgcaaagaacctggctgtacttaagatacttgca
+ccatcagagagagatgaagggtcttactactgtgcctgtgaca
+>AE000661|TRDV2*03|Homo sapiens|F|V-REGION|176712..176999|288 nt|1| | | | |288+0=288| | |
+gccattgagttggtgcctgaacaccaaacagtgcctgtgtcaataggggtccctgccacc
+ctcaggtgctccatgaaaggagaagcgatcggtaactactatatcaactggtacaggaag
+acccaaggtaacacaatgactttcatataccgagaaaaggacatctatggccctggtttc
+aaagacaatttccaaggtgacattgatattgcaaagaacctggctgtacttaagatactt
+gcaccatcagagagagatgaagggtcttactactgtgcctgtgacacc
+>M23326|TRDV3*01|Homo sapiens|F|V-REGION|303..592|290 nt|1| | | | |290+0=290| | |
+tgtgacaaagtaacccagagttccccggaccagacggtggcgagtggcagtgaggtggta
+ctgctctgcacttacgacactgtatattcaaatccagatttattctggtaccggataagg
+ccagattattcctttcagtttgtcttttatggggataacagcagatcagaaggtgcagat
+tttactcaaggacggttttctgtgaaacacattctgacccagaaagcctttcacttggtg
+atctctccagtaaggactgaagacagtgccacttactactgtgcctttag
+>X15261|TRDV3*02|Homo sapiens|F|V-REGION|316..605|290 nt|1| | | | |290+0=290| | |
+tgtgacaaagtaacccagagttccccggaccagacggtggcgagtggcagtgaggtggta
+ctgctctgcacttacgacactgtatattcaaatccagatttattctggtactggataagg
+ccagattattcctttcagtttgtcttttatggggataacagcagatcagaaggtgcagat
+tttactcaaggacggttttctgtgaaacacattctgacccagaaagcctttcacttggtg
+atctctccagtaaggactgaagacagtgccacttactactgtgcctttag
