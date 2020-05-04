@@ -4,19 +4,15 @@ hg19:
   star_index: /lustre1/lch3000_pkuhpc/liuyt/genome/Mm9_STAR_Index/
   gtf_file: /lustre1/lch3000_pkuhpc/liuyt/genome/Mus_musculus/UCSC/mm9/Annotation/Genes/genes.gtf 
   reference: hg19
-  gene_annotation: viper/static/humanhg19.annot.csv.bz2
+  gene_annotation: static/humanhg19.annot.csv.bz2
 
 
 #NOTE: hg38 is not RSEM ready!
 hg38:
   star_index: ./ref_files/hg38/STAR_2.7.0f/
   gtf_file: ./ref_files/hg38/hg38.refseq.gtf
-  bed_file: ./ref_files/hg38/hg38.refseqGenes.bed
-  ref_fasta: ./ref_files/hg38/assembly/hg38.fa
-  star_rRNA_index: ./ref_files/hg38/STAR_2.7.0f_GRCh38.ncrna/
-
   reference: hg38
-  gene_annotation: viper/static/hg38.annot.csv.bz2
+  gene_annotation: static/hg38.annot.csv.bz2
 
 mm9:
   star_index: /lustre1/lch3000_pkuhpc/liuyt/genome/Mm9_STAR_Index/
@@ -28,4 +24,4 @@ mm10:
   star_index: ./ref_files/mm10/STAR_2.7.0f
   gtf_file: ./ref_files/mm10/mm10.refseq.gtf
   reference: mm10
-  gene_annotation: viper/static/mm10.annot.csv.bz2
+  gene_annotation: static/mm10.annot.csv.bz2
