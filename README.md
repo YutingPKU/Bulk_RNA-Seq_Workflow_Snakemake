@@ -13,7 +13,7 @@ This workflow was designed to process bulk RNA-seq data. The output files includ
 # metasheet.csv setting
 
 - SampleName must be the same as config.yaml;
-- Comparison group information are given by columns which start with "comp_", 1 means controls, 2 means treatments.
+- Comparison group information are given by columns which start with "comp_", 1 means controls, 2 means treatments. We can set multiple comparison groups
 
 # config.yaml setting
 
