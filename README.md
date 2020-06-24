@@ -68,10 +68,10 @@ You can add the *samples* automatically by the following command
 - You can add any annotation information for the samples by adding in the columns
 - Comparison group information are given by columns which start with "comp_", 1 means controls, 2 means treatments. You can set multiple comparison groups. Examples are listed in the following
 
-| SampleName | Regions | Replicates | comp_CPivsOther | comp_CPovsOther |
-|--------|------|------------|-----------|------------|---------------|---------------|
-|10068A-CPi-RNA-lib   | CPi | 10068A | 2     |   1          |
-|10068A-CPo-RNA-lib   | CPo | 10068A | 1    |   2          |
+| SampleName          | Regions | Replicates | comp_CPivsOther | comp_CPovsOther |
+|---------------------|---------|------------|-----------------|-----------------|
+|10068A-CPi-RNA-lib   | CPi     | 10068A     | 2               |   1             |
+|10068A-CPo-RNA-lib   | CPo     | 10068A     | 1               |   2             |
 4. __test and run the workflow__
 - validate the pipeline by
 `snakemake --np -s viper.snakefile`
