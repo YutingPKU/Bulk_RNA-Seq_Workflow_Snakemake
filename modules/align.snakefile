@@ -5,6 +5,8 @@
 # @author: Mahesh Vangala
 # @email: vangalamaheshh@gmail.com
 # @date: July, 1st, 2016
+# @modified by Yuting Liu
+# @modified date: Jun, 24, 2020
 #-------------------------------
 
 def getFastq(wildcards):
@@ -34,6 +36,7 @@ rule run_STAR:
         stranded=strand_command,
         gz_support=gz_command,
         prefix=lambda wildcards: "analysis/STAR/{sample}/{sample}".format(sample=wildcards.sample),
+        outdir=lambda wildcards: "analysis/STAR/{sample}".format(sample=wildcards.sample),
         readgroup=lambda wildcards: "ID:{sample} PL:illumina LB:{sample} SM:{sample}".format(sample=wildcards.sample),
         star_index = config['star_index'],
     threads: 20

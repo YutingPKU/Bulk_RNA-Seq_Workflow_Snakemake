@@ -1,7 +1,7 @@
 ---
 metasheet: metasheet.csv
 ref: ref.yaml
-assembly: 'mm9'
+assembly: 'rheMac8'
 
 ## Is your library stranded? options are [true, false]
 stranded: false
@@ -10,17 +10,17 @@ library_type: 'fr-unstranded'
 
 ##PIPELINE CONTROL, whether perform these analysis
 ## mapping and counting
-bam2bw: true
-align: true
-star_counts: true
-cuff_counts: true
+bam2bw: false
+align: false
+star_counts: false
+cuff_counts: false
 
 ## filter fpkm table, sample QC
 # If this flag is on, you must have a metasheet column called batch with at least 2 samples per batch
 batch_effect_removal: false
 # Filters out "SNO" and "MIR" RNA, options are [true,false]
 filter_mirna: false
-cuff_filter_counts: true
+cuff_filter_counts: false
 cluster: true
 
 ## DEG
@@ -58,26 +58,51 @@ numgoterms: 15
 
 
 samples:
-  #FOR PAIRED-END samples--WARNING: DON'T mix single-end samples w/ paired-end
-  DM24h-HD-1:
-    - data/DM24h-1-5-HD-1_FRRL192312705-1a_1.clean.fq.gz
-    - data/DM24h-1-5-HD-1_FRRL192312705-1a_2.clean.fq.gz
-  DM24h-HD-2:
-    - data/DM24h-1-5-HD-2_FRRL192312706-1a_1.clean.fq.gz
-    - data/DM24h-1-5-HD-2_FRRL192312706-1a_2.clean.fq.gz
-  DM24h-HD-3:
-    - data/DM24h-1-5-HD-3_FRRL192312707-1a_1.clean.fq.gz
-    - data/DM24h-1-5-HD-3_FRRL192312707-1a_2.clean.fq.gz
-  GM-1:
-    - data/GM-1_FRRL192312699-1a_1.clean.fq.gz
-    - data/GM-1_FRRL192312699-1a_2.clean.fq.gz
-  GM-2:
-    - data/GM-2_FRRL192312700-1a_1.clean.fq.gz
-    - data/GM-2_FRRL192312700-1a_2.clean.fq.gz
-  GM-3:
-    - data/GM-3_FRRL192312701-1a_1.clean.fq.gz
-    - data/GM-3_FRRL192312701-1a_2.clean.fq.gz
-
-
-
-
+  10068A-CPi-RNA-lib:
+    - data/10068A-CPi-RNA-lib/10068A-CPi-RNA-lib_R1.fq.gz
+    - data/10068A-CPi-RNA-lib/10068A-CPi-RNA-lib_R2.fq.gz
+  10068A-CPo-RNA-lib:
+    - data/10068A-CPo-RNA-lib/10068A-CPo-RNA-lib_R1.fq.gz
+    - data/10068A-CPo-RNA-lib/10068A-CPo-RNA-lib_R2.fq.gz
+  10068A-ISVZ-RNA-lib:
+    - data/10068A-ISVZ-RNA-lib/10068A-ISVZ-RNA-lib_R1.fq.gz
+    - data/10068A-ISVZ-RNA-lib/10068A-ISVZ-RNA-lib_R2.fq.gz
+  10068A-IZ-RNA-lib:
+    - data/10068A-IZ-RNA-lib/10068A-IZ-RNA-lib_R1.fq.gz
+    - data/10068A-IZ-RNA-lib/10068A-IZ-RNA-lib_R2.fq.gz
+  10068A-MZ-RNA-lib:
+    - data/10068A-MZ-RNA-lib/10068A-MZ-RNA-lib_R1.fq.gz
+    - data/10068A-MZ-RNA-lib/10068A-MZ-RNA-lib_R2.fq.gz
+  10068A-OSVZ-RNA-lib:
+    - data/10068A-OSVZ-RNA-lib/10068A-OSVZ-RNA-lib_R1.fq.gz
+    - data/10068A-OSVZ-RNA-lib/10068A-OSVZ-RNA-lib_R2.fq.gz
+  10068A-SP-RNA-lib:
+    - data/10068A-SP-RNA-lib/10068A-SP-RNA-lib_R1.fq.gz
+    - data/10068A-SP-RNA-lib/10068A-SP-RNA-lib_R2.fq.gz
+  10068A-VZ-RNA-lib:
+    - data/10068A-VZ-RNA-lib/10068A-VZ-RNA-lib_R1.fq.gz
+    - data/10068A-VZ-RNA-lib/10068A-VZ-RNA-lib_R2.fq.gz
+  10068B-CPi-RNA-lib:
+    - data/10068B-CPi-RNA-lib/10068B-CPi-RNA-lib_R1.fq.gz
+    - data/10068B-CPi-RNA-lib/10068B-CPi-RNA-lib_R2.fq.gz
+  10068B-CPo-RNA-lib:
+    - data/10068B-CPo-RNA-lib/10068B-CPo-RNA-lib_R1.fq.gz
+    - data/10068B-CPo-RNA-lib/10068B-CPo-RNA-lib_R2.fq.gz
+  10068B-ISVZ-RNA-lib:
+    - data/10068B-ISVZ-RNA-lib/10068B-ISVZ-RNA-lib_R1.fq.gz
+    - data/10068B-ISVZ-RNA-lib/10068B-ISVZ-RNA-lib_R2.fq.gz
+  10068B-IZ-RNA-lib:
+    - data/10068B-IZ-RNA-lib/10068B-IZ-RNA-lib_R1.fq.gz
+    - data/10068B-IZ-RNA-lib/10068B-IZ-RNA-lib_R2.fq.gz
+  10068B-MZ-RNA-lib:
+    - data/10068B-MZ-RNA-lib/10068B-MZ-RNA-lib_R1.fq.gz
+    - data/10068B-MZ-RNA-lib/10068B-MZ-RNA-lib_R2.fq.gz
+  10068B-OSVZ-RNA-lib:
+    - data/10068B-OSVZ-RNA-lib/10068B-OSVZ-RNA-lib_R1.fq.gz
+    - data/10068B-OSVZ-RNA-lib/10068B-OSVZ-RNA-lib_R2.fq.gz
+  10068B-SP-RNA-lib:
+    - data/10068B-SP-RNA-lib/10068B-SP-RNA-lib_R1.fq.gz
+    - data/10068B-SP-RNA-lib/10068B-SP-RNA-lib_R2.fq.gz
+  10068B-VZ-RNA-lib:
+    - data/10068B-VZ-RNA-lib/10068B-VZ-RNA-lib_R1.fq.gz
+    - data/10068B-VZ-RNA-lib/10068B-VZ-RNA-lib_R2.fq.gz

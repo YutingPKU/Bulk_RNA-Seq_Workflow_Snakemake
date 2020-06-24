@@ -1,3 +1,11 @@
+#---------------------------
+# @author: Mahesh Vangala
+# @email: vangalamaheshh@gmail.com
+# @date: July, 1st, 2016
+# @modified by Yuting Liu
+# @modified date: Jun, 24, 2020
+#---------------------------
+
 ## Load required packages
 suppressMessages(library("gplots"))
 suppressWarnings(suppressMessages(library("ComplexHeatmap")))

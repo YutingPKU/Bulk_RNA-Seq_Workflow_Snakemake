@@ -1,6 +1,17 @@
+#!/usr/bin/env Rscript
+#-------------------
+# @author: Mahesh Vangala
+# @email: vangalamaheshh@gmail.com
+# @date: May, 23, 2016
+# @modified by Yuting Liu
+# @modified date: Jun, 24, 2020
+#--------------------
+
+
 #libraries
 suppressMessages(library("calibrate"))
 
+#deseq_results <- 'results/diffexp/OSVZvsOther/OSVZvsOther.deseq.csv'
 volcano_plot_f <- function(deseq_results, pdf_file, png_file, makePDF = TRUE) {
     #NOTE: if makePDF is FALSE, generate PNG file
 
@@ -20,7 +31,10 @@ volcano_plot_f <- function(deseq_results, pdf_file, png_file, makePDF = TRUE) {
 
     # Make a basic volcano plot
     #LEN NOTE: the original graph was cutting things off, in terms of log2FC
-    with(res, plot(log2FoldChange, -log10(pvalue), pch=20, main=comparisonName, col="gray"))
+    lmit <- abs(quantile(res$log2FoldChange, 0.999))
+    rmit <- abs(quantile(res$log2FoldChange, 0.001))
+    xmit <- max(lmit, rmit)
+    with(res, plot(log2FoldChange, -log10(pvalue), pch=20, main=comparisonName, col="gray", xlim = c(-xmit, xmit)))
 
     # Add colored points: red if padj<0.05, orange of log2FC>1, green if both)
     #significant = blue, non-sig = red, 30% alpha
@@ -29,15 +43,18 @@ volcano_plot_f <- function(deseq_results, pdf_file, png_file, makePDF = TRUE) {
 
     # Label points with the textxy function from the calibrate plot
     #LEN NOTE: this cutoff is too liberal--I re-enabled it, and it's crowded!
-    with(subset(res, padj<.05 & abs(log2FoldChange)>1), textxy(log2FoldChange, -log10(pvalue), labs=id, cex=.4))
+    #with(subset(res, padj<.05 & abs(log2FoldChange)>1), textxy(log2FoldChange, -log10(pvalue), labs=id, cex=.4))
     #BETTER
     #with(subset(res, padj<10e-7), textxy(log2FoldChange, -log10(pval), labs=id, cex=.8))
-
-    ##LABEL the top 100 gene (by pval)
-    #topSig <- res[order(res$pvalue),]
-    ##print(head(topSig))
-    #with(head(topSig, 100), textxy(log2FoldChange, -log10(pvalue), labs=id, cex=.5))
     
+    if(length(grep('ENS', res$id[1])) == 0){
+        ##LABEL the top 100 gene (by pval)
+        topSig <- res[order(res$padj, decreasing = F),]
+        ##print(head(topSig))
+        with(head(topSig, 10), textxy(log2FoldChange, -log10(pvalue), labs=id, cex=.3))
+        
+    }
+
     junk <- dev.off()
 
     #--------------------------------------------------------------------------

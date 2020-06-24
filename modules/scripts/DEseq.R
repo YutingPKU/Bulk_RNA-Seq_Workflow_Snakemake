@@ -1,7 +1,30 @@
+#---------------------------
+# @author: Mahesh Vangala
+# @email: vangalamaheshh@gmail.com
+# @date: July, 1st, 2016
+# @modified by Yuting Liu
+# @modified date: Jun, 24, 2020
+#---------------------------
+
 suppressMessages(library("limma"))
 suppressWarnings(suppressMessages(library("DESeq2")))
 suppressMessages(library("edgeR"))
 
+#arg_counts='results/STAR/STAR_Gene_Counts.csv'
+#arg_s1 = "10068A-MZ-RNA-lib,10068B-MZ-RNA-lib,11002A-MZ-RNA-lib,11002B-MZ-RNA-lib"
+#arg_s2 = "10068A-CPi-RNA-lib,10068A-CPo-RNA-lib,10068A-ISVZ-RNA-lib,10068A-IZ-RNA-lib,
+#10068A-OSVZ-RNA-lib,10068A-SP-RNA-lib,10068A-VZ-RNA-lib,10068B-CPi-RNA-lib,10068B-CPo-RNA-lib,
+#10068B-ISVZ-RNA-lib,10068B-IZ-RNA-lib,10068B-OSVZ-RNA-lib,10068B-SP-RNA-lib,10068B-VZ-RNA-lib,
+#11002A-CPi-RNA-lib,11002A-CPo-RNA-lib,11002A-ISVZ-RNA-lib,11002A-IZ-RNA-lib,11002A-OSVZ-RNA-lib,
+#11002A-SP-RNA-lib,11002A-VZ-RNA-lib,11002B-CPi-RNA-lib,11002B-CPo-RNA-lib,11002B-ISVZ-RNA-lib,
+#11002B-IZ-RNA-lib,11002B-OSVZ-RNA-lib,11002B-SP-RNA-lib,11002B-VZ-RNA-lib"
+#limma = 'results/diffexp/MZvsOther/MZvsOther.limma.csv'
+#deseq = 'results/diffexp/MZvsOther/MZvsOther.deseq.csv'
+#limma_annot = 'results/diffexp/MZvsOther/MZvsOther.limma.annot.csv'
+#deseq_annot = 'results/diffexp/MZvsOther/MZvsOther.deseq.annot.csv'
+#deseqSum_out = 'results/diffexp/MZvsOther/MZvsOther.deseq.sum.csv'
+#gene_annotation = 'data/Macaca_mulatta.Mmul_8.0.1.89.chr.gtf.annot.csv'
+#prefix = 'results/diffexp/MZvsOther/MZvsOther'
 limma_and_deseq_f <- function(arg_counts, arg_s1, arg_s2, limma, deseq, limma_annot, deseq_annot, deseqSum_out,gene_annotation, prefix) {
     #READ in gene_annotation table--even though gene descriptions are quoted
     #in the annotations, we have to quote it again!
@@ -87,15 +110,27 @@ limma_and_deseq_f <- function(arg_counts, arg_s1, arg_s2, limma, deseq, limma_an
         ## WRITE annotation table--limma.annot.csv
         write.table(limma_annotations,limma_annot,sep=',',col.names=T,row.names=F,quote=F)
     }
-    ## Setting the first column name to 'id'
-    deseq_result <- cbind(id=rownames(deseq_result), as.matrix(deseq_result))
-    ## Sort by padj. and remove padj = NA
-    deseq_result <-deseq_result[order(as.numeric(deseq_result[,"padj"])),]
+    if(length(grep('ENS', rownames(deseq_result))) == 1){
+        ## Setting the first column name to 'id'
+        deseq_result <- cbind('ensembl_gene_id'=noquote(rownames(deseq_result)), as.matrix(deseq_result))
+        ## Sort by padj. and remove padj = NA
+        deseq_result <-deseq_result[order(as.numeric(deseq_result[,"padj"])),]
+        ## ANNOTATE w/ local .csv biomart annotation file
+        deseq_annotations <- merge(deseq_result, gene_annot, by= "ensembl_gene_id", all.x = TRUE, sort=FALSE)
+    }else{
+        ## Setting the first column name to 'id'
+        deseq_result <- cbind('id'=noquote(rownames(deseq_result)), as.matrix(deseq_result))
+        ## Sort by padj. and remove padj = NA
+        deseq_result <-deseq_result[order(as.numeric(deseq_result[,"padj"])),]
+        ## ANNOTATE w/ local .csv biomart annotation file
+        deseq_annotations <- merge(deseq_result, gene_annot, by= "id", all.x = TRUE, sort=FALSE)
+    }
+    
+    
     ## Write output deseq
     write.table(deseq_result,deseq,sep=',',col.names=T,row.names=F,quote=F)
 
-    ## ANNOTATE w/ local .csv biomart annotation file
-    deseq_annotations <- merge(deseq_result, gene_annot, by= "id", all.x = TRUE, sort=FALSE)
+
     
     ## defined up-regulated and down-regulated genes
     up.deseq1 <- deseq_annotations[which(deseq_annotations$log2FoldChange > 1 & deseq_annotations$padj < 0.01), c(1:9)]

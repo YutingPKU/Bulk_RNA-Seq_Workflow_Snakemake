@@ -4,9 +4,9 @@
 # coding: utf-8
 
 #------------------------------------
-# @author: Mahesh Vangala
-# @email: vangalamaheshh@gmail.com
-# @date: July, 1st, 2016
+# @author: Yuting Liu
+# @email: lyt17@pku.edu.cn
+# @date: Jun 24, 2020
 #------------------------------------
 
 

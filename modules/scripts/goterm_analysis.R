@@ -1,11 +1,28 @@
+#!/usr/bin/env Rscript
+#-------------------
+# @author: Mahesh Vangala
+# @email: vangalamaheshh@gmail.com
+# @date: May, 23, 2016
+# @modified by Yuting Liu
+# @modified date: Jun, 24, 2020
+#--------------------
+
+
+
 suppressMessages(library("AnnotationDbi"))
 suppressMessages(library("org.Hs.eg.db"))
 suppressMessages(library("org.Mm.eg.db"))
+suppressMessages(library("org.Mmu.eg.db"))
 suppressMessages(library("clusterProfiler"))
 suppressMessages(library("enrichplot"))
 suppressMessages(library("ggplot2"))
 suppressMessages(library("stringr"))
 
+#deseq_file = 'results/diffexp/OSVZvsOther/OSVZvsOther.deseq.csv'
+#adjpvalcutoff = 0.05
+#numgoterms = 15
+#reference = 'rheMac8'
+#prefix = 'results/GO/OSVZvsOther/OSVZvsOther'
 
 ## The traceback is actually necessary to not break pipe at the stop step, so leave on
 options(error = function() traceback(2))
@@ -28,11 +45,24 @@ goterm_analysis_f <- function(deseq_file,adjpvalcutoff,numgoterms,reference, pre
     org = "hsa"}
     if (length(grep("mm",reference) == 1)) {IDdb = org.Mm.eg.db 
     org = "mmu"}
-    detable$entrez <- mapIds(IDdb,
-                             keys=rownames(detable),
-                             column="ENTREZID",
-                             keytype="SYMBOL",
-                             multiVals="first")
+    if (length(grep("rhe",reference) == 1)) {IDdb = org.Mmu.eg.db 
+    org = "mcc"}
+    if(length(grep('ENS', rownames(detable)[1])) == 1){
+        detable$entrez <- mapIds(IDdb,
+                                 keys=rownames(detable),
+                                 column="ENTREZID",
+                                 keytype="ENSEMBL",
+                                 multiVals="first")
+        
+    }else{
+        detable$entrez <- mapIds(IDdb,
+                                 keys=rownames(detable),
+                                 column="ENTREZID",
+                                 keytype="SYMBOL",
+                                 multiVals="first")
+        
+    }
+
     
     ## Select genes that pass the adjPval cutoff and select those entrez IDs as pop, set rest as universe.
     uptopgenes <- subset(detable, detable$padj < adjpvalcutoff & detable$log2FoldChange > 1)
@@ -98,6 +128,7 @@ gsea_analysis_f <- function(deseq_file,numgoterms,reference, prefix) {
     ## Append ENTREZ IDs from loaded in 
     if (length(grep("hg",reference) == 1)) {IDdb = org.Hs.eg.db}
     if (length(grep("mm",reference) == 1)) {IDdb = org.Mm.eg.db}
+    if (length(grep("rhe",reference) == 1)) {IDdb = org.Mmu.eg.db}
 
     
     ## prepare the genelist
@@ -107,9 +138,16 @@ gsea_analysis_f <- function(deseq_file,numgoterms,reference, prefix) {
     
     
     ## GSEA 
-    gsea.ls <- lapply(c('BP','MF','CC'), function(vec){
-        return(gseGO(geneList = gsea_gene_list, OrgDb = IDdb, ont = vec, pvalueCutoff = 0.25, keyType = 'SYMBOL'))
-    })
+    if(length(grep('ENS', rownames(detable)[1])) == 1){
+        gsea.ls <- lapply(c('BP','MF','CC'), function(vec){
+            return(gseGO(geneList = gsea_gene_list, OrgDb = IDdb, ont = vec, pvalueCutoff = 0.25, keyType = 'ENSEMBL'))
+        })
+    }else{
+        gsea.ls <- lapply(c('BP','MF','CC'), function(vec){
+            return(gseGO(geneList = gsea_gene_list, OrgDb = IDdb, ont = vec, pvalueCutoff = 0.25, keyType = 'SYMBOL'))
+        })
+    }
+
     
     ## visualization
     name.ls <- paste0('GSEA_DEG_', c('BP','MF','CC'))

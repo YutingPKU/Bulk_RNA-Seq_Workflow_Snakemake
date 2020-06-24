@@ -1,3 +1,12 @@
+#!/usr/bin/env Rscript
+#-------------------
+# @author: Mahesh Vangala
+# @email: vangalamaheshh@gmail.com
+# @date: May, 23, 2016
+# @modified by Yuting Liu
+# @modified date: Jun, 24, 2020
+#--------------------
+
 ## Load required packages
 suppressMessages(library("gplots"))
 suppressWarnings(suppressMessages(library("ComplexHeatmap")))
@@ -34,7 +43,8 @@ heatmapSS_Spearman_plot <- function(rpkmTable,annot, ss_out_dir) {
     mi_nolym <- min(cordata)
     my.breaks_nolym<-c(mi_nolym,seq(mi_nolym + 0.01, ma_nolym - 0.01,length.out=99),ma_nolym)
     
-    pdf(file = paste(ss_out_dir, "heatmapSS_Spearman_plot.pdf", sep=""), width = 2.5, height = 1.8)
+
+    pdf(file = paste(ss_out_dir, "heatmapSS_Spearman_plot.pdf", sep=""), width = 2.5 + ncol(annot)*0.3, height = 1.8)
 
     ha1 <- make_complexHeatmap_annotation(annot)
 
@@ -69,7 +79,7 @@ heatmapSS_Spearman_plot <- function(rpkmTable,annot, ss_out_dir) {
    # }
     dev.off()
     
-    png(file=paste(ss_out_dir, "images/heatmapSS_Spearman_plot.png", sep=""), width = 2.5, height = 1.8, unit="in",res=1000)
+    png(file=paste(ss_out_dir, "images/heatmapSS_Spearman_plot.png", sep=""), width = 2.5+ncol(annot)*0.3, height = 1.8, unit="in",res=1000)
     draw(mapplot)
    # for(an in colnames(annot[1:ncol(annot)])) {
   #      decorate_annotation(an, {
@@ -109,7 +119,7 @@ heatmapSS_Pearson_plot <- function(rpkmTable,annot, ss_out_dir) {
   mi_nolym <- min(cordata)
   my.breaks_nolym<-c(mi_nolym,seq(mi_nolym + 0.01, ma_nolym - 0.01,length.out=99),ma_nolym)
   
-  pdf(file = paste(ss_out_dir, "heatmapSS_Pearson_plot.pdf", sep=""), width = 2.5, height = 1.8)
+  pdf(file = paste(ss_out_dir, "heatmapSS_Pearson_plot.pdf", sep=""), width = 2.5+ncol(annot)*0.3, height = 1.8)
   
   ha1 <- make_complexHeatmap_annotation(annot)
   mapplot <-Heatmap(t(as.matrix(cordata)),
@@ -140,7 +150,7 @@ heatmapSS_Pearson_plot <- function(rpkmTable,annot, ss_out_dir) {
   
   dev.off()
   
-  png(file=paste(ss_out_dir, "images/heatmapSS_Pearson_plot.png", sep=""), width = 2.5, height = 1.8, unit="in",res=300)
+  png(file=paste(ss_out_dir, "images/heatmapSS_Pearson_plot.png", sep=""), width = 2.5+ncol(annot)*0.3, height = 1.8, unit="in",res=300)
   draw(mapplot)
   
   dev.off()

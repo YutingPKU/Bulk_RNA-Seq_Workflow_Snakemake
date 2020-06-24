@@ -7,6 +7,8 @@
 # @author: Mahesh Vangala
 # @email: vangalamaheshh@gmail.com
 # @date: July, 1st, 2016
+# @modified by Yuting Liu
+# @modified date: Jun, 24, 2020
 #-----------------------------------
 
 def getTargetInfo(config):
@@ -39,6 +41,11 @@ def _getSTARcounts(config):
     STAR_out_files = []
     if config["star_counts"] == True:
         STAR_out_files = ["analysis/" + config["token"] + "/STAR/batch_corrected_STAR_Gene_Counts.csv"] if config["batch_effect_removal"] == True else ["analysis/" + config["token"] + "/STAR/STAR_Gene_Counts.csv"]
+    return STAR_out_files
+
+## Returns proper count files for with and without batch effect correction
+def _getSTARcountsRes(config):
+    STAR_out_files = ["analysis/" + config["token"] + "/STAR/batch_corrected_STAR_Gene_Counts.csv"] if config["batch_effect_removal"] == True else ["analysis/" + config["token"] + "/STAR/STAR_Gene_Counts.csv"]
     return STAR_out_files
 
 

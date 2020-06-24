@@ -3,6 +3,8 @@
 # @author: Mahesh Vangala
 # @email: vangalamaheshh@gmail.com
 # @date: May, 23, 2016
+# @modified by Yuting Liu
+# @modified date: Jun, 24, 2020
 #--------------------
 
 
@@ -17,9 +19,9 @@ library(ggrepel)
 suppressMessages(source('modules/scripts/supp_fns.R'))
 
 #source("/mnt/cfce-stor1/home/mgc31/code/viperproject/modules/scripts/supp_fns.R")
-#rpkmFile = "summary_reports/cufflinks/Cuff_Gene_Counts.filtered.csv"
-#metaFile = "metasheet.csv"
-#pca_out_dir = "test-res/"
+#rpkmFile = "results/cufflinks/Cuff_Gene_Counts.filtered_top1000VarGenes.csv"
+#metaFile = "data/metasheet.csv"
+#pca_out_dir = "results/plots/"
 
 pca_plot <- function(rpkmTable, annot, pca_out_dir) {
   rpkm.pca <- prcomp(t(rpkmTable), center = TRUE, scale. = TRUE)
@@ -33,17 +35,19 @@ pca_plot <- function(rpkmTable, annot, pca_out_dir) {
   cumvar <- cumsum(variance)
   eig.decathlon2.active <- data.frame(eig = eig, variance = variance,
                                       cumvariance = cumvar)
-  fontsize = 4
-  linesize = .5
+  fontsize = 8
+  linesize = 1
   
   all_plots <- list()
   for (ann in colnames(annot)){
     groups = as.character(annot[,ann])
     plotf <- function(gp){
       g <- ggplot(data.frame(res.pca$x[,1:2]), aes(x = PC1, y = PC2, color = gp)) +
-      geom_point(size =.8) + geom_label_repel(aes(label = colnames(rpkmTable)),
-                                             box.padding   = 0.5, 
-                                             point.padding = 0.35, size = 1, label.size = NA, segment.size = NA )+
+      geom_point(size =.8) + 
+      #  geom_text(aes(label=colnames(rpkmTable)),hjust=.5, vjust=1.5, size = 1)+
+      geom_label_repel(aes(label = colnames(rpkmTable)),
+                                             box.padding   = 0.35, 
+                                             point.padding = 0.5, size = 1)+
       xlab(paste0("PC1 (", round(eig.decathlon2.active[1,2]), "% variance)")) +
       ylab(paste0("PC2 (", round(eig.decathlon2.active[2,2]), "% variance)")) +
       ggtitle(paste0(" PCA log2 FPKM (", nrow(rpkmTable), "genes) "))+
@@ -66,10 +70,10 @@ pca_plot <- function(rpkmTable, annot, pca_out_dir) {
     g <- plotf(groups)
    
     all_plots[[ann]] = g
-    suppressMessages(ggsave(paste(pca_out_dir, "images/pca_plot_", ann, ".png", sep=""), width = 1.5, height = 1.6, units = 'in', dpi = 1000))
+    suppressMessages(ggsave(paste(pca_out_dir, "images/pca_plot_", ann, ".png", sep=""), width = 4, height = 4, units = 'in', dpi = 1000))
   }
 
-  pdf(paste(pca_out_dir, "pca_plot.pdf", sep=""), width = 1.4, height = 1.5)
+  pdf(paste(pca_out_dir, "pca_plot.pdf", sep=""), width = 4, height = 4)
   capture.output(print(c(all_plots,list(plot.var))))
   junk <- dev.off()
 }

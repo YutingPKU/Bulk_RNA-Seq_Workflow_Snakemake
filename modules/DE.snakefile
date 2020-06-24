@@ -3,11 +3,11 @@
 # vim: syntax=python tabstop=4 expandtab
 # coding: utf-8
 
-from scripts.utils import _getSTARcounts
+from scripts.utils import _getSTARcountsRes
 
 rule limma_and_deseq:
     input:
-        counts = _getSTARcounts(config)[0]
+        counts = _getSTARcountsRes(config)[0]
     output:
         limma = "analysis/" + config["token"] + "/diffexp/{comparison}/{comparison}.limma.csv",
         deseq = "analysis/" + config["token"] + "/diffexp/{comparison}/{comparison}.deseq.csv",
