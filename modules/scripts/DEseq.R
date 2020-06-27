@@ -133,6 +133,8 @@ limma_and_deseq_f <- function(arg_counts, arg_s1, arg_s2, limma, deseq, limma_an
 
     
     ## defined up-regulated and down-regulated genes
+    deseq_annotations$log2FoldChange <- as.numeric(as.character(deseq_annotations$log2FoldChange))
+    deseq_annotations$padj <- as.numeric(as.character(deseq_annotations$padj))
     up.deseq1 <- deseq_annotations[which(deseq_annotations$log2FoldChange > 1 & deseq_annotations$padj < 0.01), c(1:9)]
     down.deseq1 <- deseq_annotations[which(deseq_annotations$log2FoldChange < -1 & deseq_annotations$padj < 0.01), c(1:9)]
     up.deseq2 <- deseq_annotations[which(deseq_annotations$log2FoldChange > 1 & deseq_annotations$padj < 0.05), c(1:9)]
